@@ -467,7 +467,7 @@
 			align-items: center;
 			justify-content: center;
 			gap: 48px;
-			padding-top: -20px;
+			padding-top: 60px;
 		}
 
 		/* Updated pronunciation styles - replace the existing pronunciation CSS */
@@ -569,6 +569,10 @@
 		}
 
 		@media (max-width: 768px) {
+			.hero {
+				padding-top: -20px;
+			}
+			
 			.pronunciation {
 				margin: 0 20px;
 				padding: 12px 24px;
@@ -609,7 +613,7 @@
     </nav>
 
 	<section class="hero">
-		<div class="pronunciation">
+		<div class="pronunciation" onclick="playPronunciation()">
 			<div class="word">
 				<span class="muted">t</span>
 				<span class="accent">Shorts</span>
@@ -660,6 +664,13 @@
 
 
     <script>
+	
+	    function playPronunciation() {
+        const utterance = new SpeechSynthesisUtterance("Shorts");
+        utterance.rate = 1; // Adjust speed if necessary
+        utterance.lang = 'en-US'; // Set language (e.g., en-US for US English)
+        speechSynthesis.speak(utterance);
+    }
         // Telegram-style ripple effect
         function createRipple(event) {
             const button = event.currentTarget;
