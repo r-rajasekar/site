@@ -569,6 +569,9 @@
 		}
 
 		@media (max-width: 768px) {
+			.hero {
+				padding-top: -20px;
+			}
 			
 			.pronunciation {
 				margin: 0 20px;
@@ -589,25 +592,6 @@
 				width: 15px;
 			}
 		}
-		
-		@media (max-width: 768px) {  /* Adjusts for mobile view */
-    .navbar {
-        margin-bottom: 0; /* Reduces space under navbar */
-        padding-bottom: 5px; /* Minimizes padding if there's extra */
-    }
-    
-    .pronunciation {
-        margin-top: 0; /* Removes any extra margin above */
-        padding-top: 10px; /* Adjust to control spacing */
-    }
-    
-    /* Remove any extra padding or margins from containers in between */
-    .container, .row, .col {
-        margin: 0;
-        padding: 0;
-    }
-}
-
     </style>
 </head>
 <body>
@@ -681,28 +665,12 @@
 
     <script>
 	
-		function playPronunciation() {
-			const utterance = new SpeechSynthesisUtterance("Shorts");
-
-			// Get all available voices
-			const voices = speechSynthesis.getVoices();
-			
-			// Find a female voice (try different ones if needed)
-			const femaleVoice = voices.find(voice => voice.name.includes("Female") || voice.name.includes("Google US English"));
-			
-			// Set voice if found
-			if (femaleVoice) {
-				utterance.voice = femaleVoice;
-			}
-
-			utterance.rate = 1; // Adjust speed if necessary
-			utterance.lang = 'en-US'; // Set language
-			speechSynthesis.speak(utterance);
-		}
-
-		// Preload voices
-		speechSynthesis.onvoiceschanged = () => playPronunciation();
-		
+	    function playPronunciation() {
+        const utterance = new SpeechSynthesisUtterance("Shorts");
+        utterance.rate = 1; // Adjust speed if necessary
+        utterance.lang = 'en-US'; // Set language (e.g., en-US for US English)
+        speechSynthesis.speak(utterance);
+    }
         // Telegram-style ripple effect
         function createRipple(event) {
             const button = event.currentTarget;
