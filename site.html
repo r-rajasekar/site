@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tShorts - Create & Share Videos on Telegram</title>
+    <style>
+        :root {
+            --tg-theme-bg-color: #17212b;
+            --tg-theme-secondary-bg: #1f2936;
+            --tg-theme-text-color: #ffffff;
+            --tg-theme-hint-color: #7d8e98;
+            --tg-theme-link-color: #5ac8fa;
+            --tg-theme-button-color: #5ac8fa;
+            --tg-theme-button-text-color: #fff;
+            --tg-theme-accent: #5ac8fa;
+            --tg-theme-card-bg: #242f3d;
+            --tg-theme-hover: #2b5278;
+            --tg-transition-bezier: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+            --header-height: 60px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --tg-theme-bg-color: #17212b;
+                --tg-theme-secondary-bg: #1f2936;
+                --tg-theme-text-color: #fff;
+                --tg-theme-hint-color: #7d8e98;
+                --tg-theme-link-color: #5ac8fa;
+                --tg-theme-button-color: #5ac8fa;
+                --tg-theme-button-text-color: #fff;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(23, 33, 43, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            transition: transform 0.3s var(--tg-transition-bezier);
+        }
+
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--tg-theme-button-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--tg-theme-button-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transform: rotate(-10deg);
+            transition: transform 0.3s var(--tg-transition-bezier);
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(0deg);
+        }
+
+        .menu-button {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+            margin-left: auto;
+            display: none;
+        }
+
+        .menu-button span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--tg-theme-text-color);
+            position: absolute;
+            left: 12px;
+            transition: all 0.3s var(--tg-transition-bezier);
+        }
+
+        .menu-button span:nth-child(1) { top: 16px; }
+        .menu-button span:nth-child(2) { top: 22px; }
+        .menu-button span:nth-child(3) { top: 28px; }
+
+        .menu-open .menu-button span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .menu-open .menu-button span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-open .menu-button span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            margin-left: 32px;
+        }
+
+        .nav-links a {
+            color: var(--tg-theme-text-color);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s var(--tg-transition-bezier);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--tg-theme-button-color);
+            border-radius: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.2s var(--tg-transition-bezier);
+        }
+
+        .nav-links a:hover {
+            background: var(--tg-theme-hover);
+        }
+
+        .nav-links a:hover::after {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .hero {
+            min-height: 100vh;
+            padding: calc(var(--header-height) + 32px) 24px 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--tg-theme-bg-color), var(--tg-theme-secondary-bg));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at 50% 50%,
+                rgba(90, 200, 250, 0.15) 0%,
+                transparent 70%
+            );
+            opacity: 0.1;
+            filter: blur(60px);
+            animation: pulse 8s infinite var(--tg-transition-bezier);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.5); opacity: 0.05; }
+            100% { transform: scale(1); opacity: 0.1; }
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s var(--tg-transition-bezier) forwards;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--tg-theme-hint-color);
+            max-width: 600px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s var(--tg-transition-bezier) 0.2s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.2s var(--tg-transition-bezier);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s var(--tg-transition-bezier) 0.4s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--tg-transition-bezier);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(90, 200, 250, 0.2);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .features {
+            padding: 64px 24px;
+            background: var(--tg-theme-secondary-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--tg-theme-card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s var(--tg-transition-bezier);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--tg-theme-button-color);
+            transition: height 0.3s var(--tg-transition-bezier);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover::before {
+            height: 100%;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--tg-theme-text-color);
+        }
+
+        .feature-card p {
+            color: var(--tg-theme-hint-color);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .code-section {
+            padding: 64px 24px;
+            background: var(--tg-theme-bg-color);
+        }
+
+        .code-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--tg-theme-card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s var(--tg-transition-bezier);
+        }
+
+        .code-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .code-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(90, 200, 250, 0.1) 50%,
+                transparent 100%
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s var(--tg-transition-bezier);
+        }
+
+        .code-container:hover::before {
+            transform: translateX(100%);
+        }
+
+        .code-container code {
+            color: #e6e6e6;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background: var(--tg-theme-bg-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+                margin: 0;
+                transform: translateX(100%);
+                transition: transform 0.3s var(--tg-transition-bezier);
+            }
+
+            .menu-open .nav-links {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            .menu-open .nav-links a {
+                opacity: 1;
+                transform: translateX(0);
+                transition: all 0.3s var(--tg-transition-bezier);
+            }
+
+            .menu-open .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+            .menu-open .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+            .menu-open .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+            .menu-open .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon">tS</div>
+            <span>tShorts</span>
+        </a>
+        <button class="menu-button" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#create">Create</a>
+            <a href="#start">Get Started</a>
+        </div>
+    </nav>
+
+	<section class="hero">
+		<h1>Create Epic Short Videos</h1>
+		<p>Create, edit, and share engaging short-form videos directly through Telegram. Join millions of creators and start sharing your story today.</p>
+		<a href="https://t.me/tShorts_bot" class="cta-button">
+			Open in Telegram
+			<div class="ripple-container"></div>
+		</a>
+	</section>
+
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card" data-delay="0">
+                <h3>Easy Creation ⚡️</h3>
+                <p>Create engaging short videos in seconds. Record, edit, and share all within Telegram.</p>
+            </div>
+            <div class="feature-card" data-delay="100">
+                <h3>Smart Effects 🎨</h3>
+                <p>Add trending music, filters, and effects to make your content stand out from the crowd.</p>
+            </div>
+            <div class="feature-card" data-delay="200">
+                <h3>Instant Sharing 🚀</h3>
+                <p>Share your videos instantly to channels, groups, or your personal feed with one tap.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section" id="create">
+        <div class="code-container">
+            <pre><code>🎥 Start Creating:
+
+1. Open Telegram
+2. Search @tShorts_bot
+3. Tap 'Start'
+4. Create your first video
+
+🚀 Join 1M+ creators today!</code></pre>
+        </div>
+    </section>
+
+
+    <script>
+        // Telegram-style ripple effect
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            
+            const diameter = Math.max(rect.width, rect.height);
+            const radius = diameter / 2;
+            
+            ripple.style.width = ripple.style.height = `${diameter}px`;
+            ripple.style.left = `${event.clientX - rect.left - radius}px`;
+            ripple.style.top = `${event.clientY - rect.top - radius}px`;
+            ripple.className = 'ripple';
+            
+            const rippleContainer = button.querySelector('.ripple-container');
+            rippleContainer.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+
+        // Mobile menu toggle with Telegram animations
+        const menuButton = document.querySelector('.menu-button');
+        menuButton.addEventListener('click', () => {
+            document.body.classList.toggle('menu-open');
+            
+            // Animate nav links
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach((link, index) => {
+                if (document.body.classList.contains('menu-open')) {
+                    link.style.transitionDelay = `${0.1 + (index * 0.1)}s`;
+                } else {
+                    link.style.transitionDelay = `${0.1 + ((links.length - index - 1) * 0.1)}s`;
+                }
+            });
+        });
+
+        // Feature cards animation on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -10% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.style.transitionDelay = `${entry.target.dataset.delay}ms`;
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Navbar hide/show on scroll
+        let lastScrollTop = 0;
+        let isScrolling = false;
+
+        function onScroll() {
+            if (!isScrolling) {
+                isScrolling = true;
+                requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    const navbar = document.querySelector('.navbar');
+                    
+                    if (currentScroll > lastScrollTop && currentScroll > 100) {
+                        navbar.classList.add('hidden');
+                    } else {
+                        navbar.classList.remove('hidden');
+                    }
+                    
+                    lastScrollTop = currentScroll;
+                    isScrolling = false;
+                });
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Observer for code container
+        const codeContainer = document.querySelector('.code-container');
+        observer.observe(codeContainer);
+    </script>
+</body>
+</html>
