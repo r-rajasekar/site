@@ -539,20 +539,28 @@
         });
 
         // Mobile menu toggle with Telegram animations
-        const menuButton = document.querySelector('.menu-button');
-        menuButton.addEventListener('click', () => {
-            document.body.classList.toggle('menu-open');
-            
-            // Animate nav links
-            const links = document.querySelectorAll('.nav-links a');
-            links.forEach((link, index) => {
-                if (document.body.classList.contains('menu-open')) {
-                    link.style.transitionDelay = `${0.1 + (index * 0.1)}s`;
-                } else {
-                    link.style.transitionDelay = `${0.1 + ((links.length - index - 1) * 0.1)}s`;
-                }
-            });
-        });
+		const menuButton = document.querySelector('.menu-button');
+		const navLinks = document.querySelectorAll('.nav-links a');
+
+		// Toggle menu on hamburger click
+		menuButton.addEventListener('click', () => {
+			document.body.classList.toggle('menu-open');
+		});
+
+		// Close menu when a link is clicked
+		navLinks.forEach(link => {
+			link.addEventListener('click', () => {
+				document.body.classList.remove('menu-open');
+			});
+		});
+
+		// Close menu when clicking outside
+		document.addEventListener('click', (e) => {
+			if (!e.target.closest('.menu-button') && 
+				!e.target.closest('.nav-links')) {
+				document.body.classList.remove('menu-open');
+			}
+		});
 
         // Feature cards animation on scroll
         const observerOptions = {
