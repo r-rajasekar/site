@@ -570,7 +570,7 @@
 
 		@media (max-width: 768px) {
 			.hero {
-				padding-top: -20px;
+				padding-top: -100px;
 			}
 			
 			.pronunciation {
@@ -665,12 +665,28 @@
 
     <script>
 	
-	    function playPronunciation() {
-        const utterance = new SpeechSynthesisUtterance("Shorts");
-        utterance.rate = 1; // Adjust speed if necessary
-        utterance.lang = 'en-US'; // Set language (e.g., en-US for US English)
-        speechSynthesis.speak(utterance);
-    }
+		function playPronunciation() {
+			const utterance = new SpeechSynthesisUtterance("Shorts");
+
+			// Get all available voices
+			const voices = speechSynthesis.getVoices();
+			
+			// Find a female voice (try different ones if needed)
+			const femaleVoice = voices.find(voice => voice.name.includes("Female") || voice.name.includes("Google US English"));
+			
+			// Set voice if found
+			if (femaleVoice) {
+				utterance.voice = femaleVoice;
+			}
+
+			utterance.rate = 1; // Adjust speed if necessary
+			utterance.lang = 'en-US'; // Set language
+			speechSynthesis.speak(utterance);
+		}
+
+		// Preload voices
+		speechSynthesis.onvoiceschanged = () => playPronunciation();
+		
         // Telegram-style ripple effect
         function createRipple(event) {
             const button = event.currentTarget;
