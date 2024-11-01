@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>tShorts - Create & Share Videos on Telegram</title>
     <style>
         :root {
@@ -40,11 +41,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
-            line-height: 1.5;
-            overflow-x: hidden;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+			background: linear-gradient(145deg, #17212b, #1a1a1a, #1f2936);
+			background-attachment: fixed; /* This prevents the gradient from scrolling */
+			color: var(--tg-theme-text-color);
+			line-height: 1.5;
+			overflow-x: hidden;
+			min-height: 100vh;
         }
 
         .navbar {
@@ -52,7 +55,7 @@
             top: 0;
             width: 100%;
             height: var(--header-height);
-            background-color: rgba(23, 33, 43, 0.8);
+            background-color: rgba(23, 33, 43, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -176,12 +179,6 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
-			background: linear-gradient(
-				145deg,
-				#17212b,
-				#1a1a1a,
-				#1f2936
-			);
 			position: relative;
 			overflow: hidden;
 		}
@@ -286,7 +283,7 @@
 
         .features {
             padding: 64px 24px;
-            background: var(--tg-theme-secondary-bg);
+            position: relative;
         }
 
         .features-grid {
@@ -348,7 +345,7 @@
 
         .code-section {
             padding: 64px 24px;
-            background: var(--tg-theme-bg-color);
+            background: rgba(23, 33, 43, 0.3);
         }
 
         .code-container {
@@ -459,16 +456,6 @@
                 transition: none !important;
             }
         }
-		
-		.hero {
-			min-height: 100vh;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			gap: 48px;
-			padding-top: 60px;
-		}
 
 		/* Updated pronunciation styles - replace the existing pronunciation CSS */
 		.pronunciation {
@@ -662,7 +649,563 @@
         </div>
     </section>
 
+<section class="roadmap" id="roadmap">
+    <style>
+        .roadmap {
+            padding: 80px 24px;
+            position: relative;
+            overflow: hidden;
+        }
 
+        .roadmap-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .roadmap-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .phase {
+            flex: 1;
+            max-width: 360px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+			isolation: isolate;
+        }
+
+        .phase:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--tg-theme-button-color);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(90, 200, 250, 0.1);
+        }
+
+        .phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                var(--tg-theme-button-color) 0%,
+                rgba(90, 200, 250, 0.5) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .phase:hover::before {
+            opacity: 1;
+        }
+
+        .phase-content {
+            padding: 32px;
+        }
+
+        .phase-number {
+            font-size: 14px;
+            color: var(--tg-theme-button-color);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .phase-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--tg-theme-text-color);
+            margin-bottom: 16px;
+        }
+
+        .phase-description {
+            color: var(--tg-theme-hint-color);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--tg-theme-text-color);
+            font-size: 14px;
+            margin-bottom: 12px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-item:hover {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(90, 200, 250, 0.1);
+            border-radius: 6px;
+            color: var(--tg-theme-button-color);
+        }
+
+.scroll-indicator {
+    display: none;
+    text-align: center;
+    color: var(--tg-theme-hint-color);
+    font-size: 14px;
+    padding: 16px 0;
+    opacity: 0.8;
+}
+
+.scroll-indicator span {
+    display: inline-block;
+    margin: 0 8px;
+    position: relative;
+    width: 40px; /* Width to accommodate both arrows */
+    height: 16px; /* Match line-height */
+    vertical-align: middle; /* Align with text */
+}
+
+.scroll-indicator span::before,
+.scroll-indicator span::after {
+    content: '←';
+    position: absolute;
+    animation: moveLeft 1.5s ease-in-out infinite;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.scroll-indicator span::after {
+    content: '→';
+    animation: moveRight 1.5s ease-in-out infinite;
+    left: 16px;
+}
+
+@keyframes moveLeft {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(-6px); }
+}
+
+@keyframes moveRight {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(6px); }
+}
+
+@media (max-width: 768px) {
+    .scroll-indicator {
+        display: block;
+    }
+}
+
+        @media (max-width: 768px) {
+            .roadmap {
+                padding: 0px 0;
+            }
+
+            .roadmap-container {
+                overflow-x: visible;
+                padding: 0;
+            }
+
+            .roadmap-header {
+                padding: 0 24px;
+                margin-bottom: 40px;
+            }
+
+            .timeline-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 16px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                position: relative;
+                margin: 0 -16px;
+            }
+
+            .timeline-wrapper::-webkit-scrollbar {
+                display: none;
+            }
+
+            .scroll-indicator {
+                display: block;
+            }
+
+            .timeline {
+                flex-direction: row;
+                align-items: stretch;
+                gap: 16px;
+                padding: 0px 24px;
+                width: fit-content;
+                min-width: min-content;
+                margin-bottom: 12px;
+            }
+
+            .phase {
+                flex: 0 0 auto;
+                width: 280px;
+                max-width: none;
+                scroll-snap-align: center;
+            }
+
+            .phase:hover {
+                transform: translateY(-4px);
+            }
+
+            .timeline-wrapper::before,
+            .timeline-wrapper::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 32px;
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .timeline-wrapper::before {
+                left: 0;
+                background: linear-gradient(
+                    to right,
+                    var(--tg-theme-bg-color),
+                    transparent
+                );
+            }
+
+            .timeline-wrapper::after {
+                right: 0;
+                background: linear-gradient(
+                    to left,
+                    var(--tg-theme-bg-color),
+                    transparent
+                );
+            }
+			
+			.timeline-wrapper::before,
+				.timeline-wrapper::after {
+					display: none;
+				}
+
+        }
+		
+		.timeline-wrapper {
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			padding: 0 16px;
+			scroll-snap-type: x mandatory;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+			position: relative;
+			margin: 0 -16px;
+			/* Add these properties to fix the shadow issue */
+			transform: translateZ(0);  /* Forces GPU acceleration */
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			perspective: 1000;
+			-webkit-perspective: 1000;
+		}
+				.hero {
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 48px;
+			padding-top: 60px;
+		}
+.footer {
+    position: relative;
+    background-color: rgba(23, 33, 43, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 24px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 32px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--tg-theme-button-color);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.footer-logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--tg-theme-button-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transform: rotate(-10deg);
+    transition: transform 0.3s var(--tg-transition-bezier);
+}
+
+.footer-logo:hover .footer-logo-icon {
+    transform: rotate(0deg);
+}
+
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-link {
+    color: var(--tg-theme-hint-color);
+    transition: all 0.3s var(--tg-transition-bezier);
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--tg-theme-button-color);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s var(--tg-transition-bezier);
+}
+
+.social-link:hover {
+    color: var(--tg-theme-bg-color);
+    transform: translateY(-2px);
+}
+
+.social-link:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.social-link i,
+.social-link svg {
+    font-size: 18px;
+    z-index: 1;
+    transition: transform 0.3s var(--tg-transition-bezier);
+    position: relative;
+}
+
+.social-link:hover i,
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+/* Optional: Adjust specific icon sizes if needed */
+.social-link .fa-x-twitter {
+    font-size: 16px; /* X icon tends to look larger */
+}
+
+.social-link .fa-telegram {
+    font-size: 20px; /* Telegram icon might need to be slightly larger */
+}
+
+.footer-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.copyright {
+    color: var(--tg-theme-hint-color);
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .footer-right {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .copyright {
+        font-size: 12px;
+    }
+}
+
+.social-link svg {
+    width: 22px;  /* Slightly larger than the default 1em */
+    height: 22px;
+    z-index: 1;
+    transition: transform 0.3s var(--tg-transition-bezier);
+    position: relative;
+}
+
+/* Maintain the hover effect */
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+/* Optional: If you want to make the Dextools icon slightly smaller due to its complex shape */
+.social-link svg[viewBox="0 0 755 867"] {
+    width: 20px;
+    height: 20px;
+}
+    </style>
+
+    <div class="roadmap-container">
+        <div class="roadmap-header">
+            <h2>Our Journey Forward</h2>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div class="timeline">
+                <div class="phase">
+                    <div class="phase-content">
+                        <div class="phase-number">Phase 01</div>
+                        <div class="phase-title">Foundation</div>
+                        <p class="phase-description">Building the core platform with essential features for video creation and sharing.</p>
+                        <ul class="features-list">
+                            <li class="feature-item">
+                                <span class="feature-icon">📱</span>
+                                <span>Video creation tools</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">✂️</span>
+                                <span>Basic editing features</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">🔄</span>
+                                <span>Telegram integration</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-content">
+                        <div class="phase-number">Phase 02</div>
+                        <div class="phase-title">Enhancement</div>
+                        <p class="phase-description">Expanding creative capabilities with advanced features and AI-powered tools.</p>
+                        <ul class="features-list">
+                            <li class="feature-item">
+                                <span class="feature-icon">🎨</span>
+                                <span>AI-powered effects</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">🎵</span>
+                                <span>Music library</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">🌈</span>
+                                <span>Advanced filters</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="phase">
+                    <div class="phase-content">
+                        <div class="phase-number">Phase 03</div>
+                        <div class="phase-title">Global Scale</div>
+                        <p class="phase-description">Expanding worldwide with professional tools and optimized performance.</p>
+                        <ul class="features-list">
+                            <li class="feature-item">
+                                <span class="feature-icon">📊</span>
+                                <span>Analytics dashboard</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">🌍</span>
+                                <span>Multi-language support</span>
+                            </li>
+                            <li class="feature-item">
+                                <span class="feature-icon">⚡</span>
+                                <span>Performance optimization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </div>
+</section>
     <script>
 	
 	    function playPronunciation() {
@@ -767,5 +1310,33 @@
         const codeContainer = document.querySelector('.code-container');
         observer.observe(codeContainer);
     </script>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-left">
+            <a href="#" class="footer-logo">
+                <div class="footer-logo-icon">tS</div>
+                <span>tShorts</span>
+            </a>
+        </div>
+        <div class="social-links-container">
+			<div class="social-links">
+				<a href="#" class="social-link" aria-label="Twitter">
+					<i class="fab fa-x-twitter"></i>
+				</a>
+				<a href="#" class="social-link" aria-label="Telegram">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" fill="currentColor"/></svg>
+				</a>
+				<a href="#" class="social-link" aria-label="Dextools">
+					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 755 867" fill="currentColor">
+						<path d="m280.395 49.025c-51.649 26.905-93.905 49.672-93.896 50.598.023 2.39 123.959 65.156 128.358 65.003 2.001-.067 16.517-6.749 32.256-14.847l28.621-14.721 31.258 16.067 31.256 16.07 51.188-23.001c77.13-34.659 85.141-38.457 83.885-39.733-1.666-1.693-29.331-16.555-104.388-56.07-36.274-19.098-71.481-37.823-78.24-41.612-6.758-3.789-13.21-6.837-14.337-6.778s-44.311 22.12-95.961 49.024zm-226.532 117.306-53.766 27.772v121.886c0 67.038.706 121.885 1.572 121.885.863 0 27.316-11.467 58.783-25.482l57.213-25.482v-128.476l27.958 15.232a33224.294 33224.294 0 0 0 64.671 35.109l36.712 19.877 16.336-7.387a3822.03 3822.03 0 0 0 30.674-14.056c7.885-3.672 27.241-12.39 43.012-19.377 15.771-6.99 30.37-14.019 32.44-15.621 2.75-2.128-30.782-20.658-124.025-68.54-70.285-36.093-130.046-65.509-132.802-65.368s-29.206 12.752-58.778 28.028zm529.148 7.799c-36.618 16.531-66.604 30.717-66.638 31.526-.032.808 19.926 12.675 44.354 26.367 24.426 13.695 44.412 25.632 44.412 26.531 0 .897-21.615 11.37-48.03 23.278-26.419 11.905-93.194 42.061-148.393 67.014l-184.954 83.602c-46.525 21.032-88.462 39.989-93.193 42.132-95.03 43.019-121.15 54.956-124.737 57.005-3.607 2.063-4.424 14.048-5.066 74.201l-.766 71.744 48.08 24.498 48.079 24.497 66.669-30.088c36.669-16.547 66.669-30.953 66.669-32.014 0-1.058-6.776-5.473-15.054-9.815-8.282-4.342-25.378-13.954-37.995-21.364-12.616-7.411-25.196-14.21-27.958-15.112-2.761-.899-4.98-2.472-4.935-3.498.046-1.023 29.404-14.968 65.236-30.991 69.597-31.117 122.858-55.1 237.202-106.809a305577.39 305577.39 0 0 1 153.411-69.31c44.948-20.288 97.208-43.983 116.134-52.655l34.41-15.767.765-72.561.769-72.558-48.765-25.03c-26.822-13.765-49.748-24.994-50.95-24.953-1.201.038-32.141 13.595-68.756 30.13zm153.872 261.772c-7.186 3.51-21.38 10.082-31.542 14.603s-29.446 13.222-42.852 19.339l-24.374 11.117-.556 63.702c-.307 35.035-1.597 63.545-2.867 63.36-2.885-.429-48.567-23.857-94.487-48.463-33.143-17.757-35.225-18.463-43.013-14.606-4.502 2.231-31.413 14.3-59.801 26.825-28.389 12.523-52.541 23.587-53.677 24.589-1.133 1 56.002 31.967 126.97 68.819l129.029 67.003 55.119-28.513c30.312-15.68 56.088-29.983 57.275-31.782 2.672-4.045 2.443-242.93-.232-242.607-1.058.127-7.806 3.104-14.992 6.614zm-305.227 280.391a25013.26 25013.26 0 0 0-28.675 12.349c-28.856 12.484-23.201 12.898-57.531-4.192-22.865-11.382-32.721-14.894-36.999-13.189-3.209 1.278-30.826 13.703-61.376 27.61-30.548 13.907-56.602 25.285-57.898 25.285-12.817 0 8.491 12.731 90.714 54.207l96.428 48.637 40.572-20.03c22.315-11.017 67.323-33.078 100.021-49.024 32.695-15.95 59.042-29.413 58.549-29.921-.497-.506-27.893-14.574-60.883-31.262l-59.982-30.338z"/>
+					</svg>
+				</a>
+			</div>
+        </div>
+        <div class="footer-right">
+            <p class="copyright">© 2024 tShorts. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
