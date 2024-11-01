@@ -804,6 +804,23 @@
   }
 }
 
+@media (max-width: 768px) {
+  .ticker-wrapper {
+    padding: 10px 0;
+  }
+  
+  .ticker-item {
+    padding: 0 20px;
+  }
+  
+  .ticker-number {
+    font-size: 14px;
+  }
+  
+  .ticker-label {
+    font-size: 13px;
+  }
+}
 
     </style>
 </head>
@@ -1388,6 +1405,28 @@
 .social-link svg[viewBox="0 0 755 867"] {
     width: 20px;
     height: 20px;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        gap: 24px; /* Reduced gap for mobile */
+        padding-top: var(--header-height);
+        justify-content: flex-start; /* Align content to top on mobile */
+    }
+
+    .pronunciation {
+        margin-top: 0; /* Remove top margin on mobile */
+        margin-bottom: 0; /* Remove bottom margin on mobile */
+        padding: 12px 24px;
+    }
+
+    .stats-ticker {
+        margin-bottom: -12px; /* Negative margin to pull content up */
+    }
+
+    .hero-content {
+        padding-top: 0; /* Remove extra padding */
+    }
 }
     </style>
 
