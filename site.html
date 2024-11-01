@@ -282,14 +282,16 @@
         }
 
         .features {
-            padding: 64px 24px;
+            padding: 0px 24px;
             position: relative;
         }
 
         .features-grid {
+			position: relative;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
+			top: -38px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -344,13 +346,14 @@
         }
 
         .code-section {
-            padding: 64px 24px;
+            padding: 24px 24px;
             background: rgba(23, 33, 43, 0.3);
         }
 
         .code-container {
             max-width: 800px;
             margin: 0 auto;
+			top: -38px;
             background: var(--tg-theme-card-bg);
             padding: 24px;
             border-radius: 12px;
@@ -595,7 +598,7 @@
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#create">Create</a>
-            <a href="#start">Get Started</a>
+            <a href="#roadmap">Roadmap</a>
         </div>
     </nav>
 
@@ -620,6 +623,9 @@
 	</section>
 
     <section class="features" id="features">
+		<div class="feature-header">
+            <h2>Features</h2>
+        </div>
         <div class="features-grid">
             <div class="feature-card" data-delay="0">
                 <h3>Easy Creation ⚡️</h3>
@@ -637,6 +643,9 @@
     </section>
 
     <section class="code-section" id="create">
+	     <div class="create-header">
+            <h2>Create</h2>
+        </div>
         <div class="code-container">
             <pre><code>🎥 Start Creating:
 
@@ -652,7 +661,7 @@
 <section class="roadmap" id="roadmap">
     <style>
         .roadmap {
-            padding: 80px 24px;
+            padding: 36px 24px;
             position: relative;
             overflow: hidden;
         }
@@ -668,12 +677,37 @@
         }
 
         .roadmap-header h2 {
-            font-size: 42px;
+            font-size: 30px;
             font-weight: 700;
             background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
+        }
+		
+		.create-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+		
+		.create-header h2 {
+            font-size: 30px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+		
+		.feature-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+		
+		.feature-header h2 {
+            font-size: 30px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .timeline {
@@ -876,7 +910,7 @@
                 flex-direction: row;
                 align-items: stretch;
                 gap: 16px;
-                padding: 0px 24px;
+                padding: 4px 24px;
                 width: fit-content;
                 min-width: min-content;
                 margin-bottom: 12px;
