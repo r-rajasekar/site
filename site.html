@@ -173,18 +173,18 @@
             transform: translateX(-50%) scale(1);
         }
 
-		.hero {
-			min-height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			position: relative;
-			overflow: hidden;
-			flex-direction: column;
-			gap: 48px;
-
-		}
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    gap: 48px;
+    padding-top: 0; /* Remove default padding */
+}
 		
 		.hero-content {
 			padding: 0 24px;
@@ -685,14 +685,15 @@
 }
 
 .stats-ticker {
-  width: 100%;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: relative; /* Changed from fixed to relative */
-  z-index: 2;
+    width: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    z-index: 2;
+    margin-top: var(--header-height); /* Align with navbar */
 }
 
 /* Adjust hero section padding */
@@ -1405,23 +1406,24 @@
 
 @media (max-width: 768px) {
     .hero {
-        gap: 24px; /* Reduced gap for mobile */
-        padding-top: 24px;
-        justify-content: center; /* Align content to top on mobile */
-    }
-
-    .pronunciation {
-        margin-top: 0; /* Remove top margin on mobile */
-        margin-bottom: 0; /* Remove bottom margin on mobile */
-        padding: 12px 24px;
+        gap: 24px;
+        padding-top: 0;
+        justify-content: flex-start;
     }
 
     .stats-ticker {
-        margin-bottom: var(--header-height);
+        margin-top: var(--header-height);
+        position: relative;
+        top: 0;
+    }
+
+    .pronunciation {
+        margin: 12px 20px;
     }
 
     .hero-content {
-        padding-top: 0; /* Remove extra padding */
+        padding: 0 24px;
+        margin-top: 0;
     }
 }
     </style>
