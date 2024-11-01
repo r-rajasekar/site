@@ -282,7 +282,7 @@
         }
 
         .features {
-            padding: 0px 24px;
+            padding: 36px 24px;
             position: relative;
         }
 
@@ -466,6 +466,7 @@
 			flex-direction: column;
 			align-items: center;
 			margin-bottom: -30px;
+			margin-top: 20px;
 			gap: 12px;
 			background: rgba(255, 255, 255, 0.08);
 			padding: 16px 32px;
@@ -582,6 +583,108 @@
 				width: 15px;
 			}
 		}
+		
+		.hero-content {
+    padding: 0 24px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeIn 1s ease-out;
+}
+
+/* New gradient title style */
+.gradient-title {
+    background: linear-gradient(160deg, #ffffff 0%, #5ac8fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    /* Add padding to ensure gradient covers full text area */
+    padding: 0.1em 0;
+}
+
+/* Keep existing subtitle style */
+.hero h1 .subtitle {
+    display: block;
+    font-size: clamp(32px, 6vw, 64px);
+    color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Keep your existing styles for paragraph and button */
+.hero p {
+    font-size: clamp(16px, 2.5vw, 20px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Common gradient style for all section headers */
+.section-header-gradient {
+    font-size: 30px;
+    font-weight: 700;
+    background: linear-gradient(160deg, #ffffff 0%, #5ac8fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding: 0.1em 0;
+    position: relative;
+}
+
+.feature-header h2,
+.create-header h2,
+.roadmap-header h2 {
+    background: linear-gradient(160deg, 
+        #ffffff 0%, 
+        #ffffff 40%, 
+        #8ad4fa 50%,
+        #5ac8fa 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Update margins for better spacing */
+.feature-header,
+.create-header,
+.roadmap-header {
+    text-align: center;
+    margin-bottom: 48px; /* Reduced from 64px for better visual balance */
+}
+
+/* Optional: Add subtle animation on hover */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.feature-header h2:hover,
+.create-header h2:hover,
+.roadmap-header h2:hover {
+    background: linear-gradient(160deg, #ffffff, #5ac8fa, #64baf3);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
     </style>
 </head>
 <body>
@@ -611,8 +714,8 @@
 			<div class="hint">Telegram Shorts: Where the 't' is Silent, and the Shorts Aren't</div>
 		</div>
 		<div class="hero-content">
-			<h1>Create Epic<br>
-				<span class="subtitle">Short Videos</span>
+			<h1><span class="gradient-title">Create Epic</span><br>
+				<span class="gradient-title">Short Videos</span>
 			</h1>
 			<p>Create and share amazing short videos directly through Telegram,<br>powering the next generation of content creators.</p>
 			<a href="https://t.me/tShorts_bot" class="cta-button" target="_blank">
@@ -675,39 +778,15 @@
             text-align: center;
             margin-bottom: 64px;
         }
-
-        .roadmap-header h2 {
-            font-size: 30px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
 		
 		.create-header {
             text-align: center;
             margin-bottom: 64px;
         }
 		
-		.create-header h2 {
-            font-size: 30px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-		
 		.feature-header {
             text-align: center;
             margin-bottom: 64px;
-        }
-		
-		.feature-header h2 {
-            font-size: 30px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .timeline {
