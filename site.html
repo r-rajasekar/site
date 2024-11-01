@@ -903,24 +903,23 @@
 
 .scroll-indicator {
     display: none;
+    width: 100%; /* Ensure full width */
     text-align: center;
     color: var(--tg-theme-hint-color);
     font-size: 14px;
     padding: 16px 0;
     opacity: 0.8;
-    /* Add flex display for better centering */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative; /* Add position relative */
 }
 
 .scroll-indicator span {
-    display: flex;
+    display: inline-flex; /* Changed to inline-flex */
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 60px; /* Increased width to give more space */
+    width: 60px;
     height: 16px;
+    margin: 0 auto; /* Center the span */
 }
 
 .scroll-indicator span::before,
@@ -933,14 +932,13 @@
 }
 
 .scroll-indicator span::before {
-    left: 12px; /* Adjust left arrow position */
+    left: 0;
 }
 
 .scroll-indicator span::after {
     content: '→';
     animation: moveRight 1.5s ease-in-out infinite;
-    right: 12px; /* Position from right instead of left */
-    left: auto; /* Remove left positioning */
+    right: 0;
 }
 
 @keyframes moveLeft {
@@ -955,7 +953,8 @@
 
 @media (max-width: 768px) {
     .scroll-indicator {
-        display: flex; /* Changed from block to maintain centering */
+        display: block;
+        text-align: center; /* Ensure center alignment on mobile */
     }
 }
 
