@@ -692,7 +692,16 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: relative;
+  position: fixed; /* Change to fixed */
+  top: var(--header-height); /* Use the header height variable */
+  left: 0;
+  right: 0;
+  z-index: 100;  /* Keep it below the header but above other content */
+}
+
+/* Add padding to the hero section to account for the fixed ticker */
+.hero {
+  padding-top: calc(var(--header-height) + 36px) !important; /* Account for ticker height */
 }
 
 .stats-ticker::before,
@@ -807,8 +816,12 @@
   .ticker-label {
     font-size: 13px;
   }
-}
 
+  /* Ensure proper spacing on mobile */
+  .hero {
+    padding-top: calc(var(--header-height) + 34px) !important; /* Slightly adjusted for mobile */
+  }
+}
     </style>
 </head>
 <body>
@@ -830,7 +843,6 @@
     </nav>
 
 	<section class="hero">
-	
 	<div class="stats-ticker">
   <div class="ticker-wrapper">
     <div class="ticker-track">
@@ -1485,7 +1497,6 @@
     </div>
 </section>
     <script>
-	
 	document.addEventListener('DOMContentLoaded', () => {
   const ticker = document.querySelector('.ticker-track');
   let isHovered = false;
@@ -1528,7 +1539,6 @@
 
   observer.observe(ticker);
 });
-	
 	    function playPronunciation() {
         const utterance = new SpeechSynthesisUtterance("Shorts");
         utterance.rate = 1; // Adjust speed if necessary
