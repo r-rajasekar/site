@@ -692,16 +692,17 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: fixed; /* Change to fixed */
-  top: var(--header-height); /* Use the header height variable */
-  left: 0;
-  right: 0;
-  z-index: 100;  /* Keep it below the header but above other content */
+  position: relative; /* Changed from fixed to relative */
+  z-index: 2;
 }
 
-/* Add padding to the hero section to account for the fixed ticker */
+/* Adjust hero section padding */
 .hero {
-  padding-top: calc(var(--header-height) + 36px) !important; /* Account for ticker height */
+  padding-top: var(--header-height); /* Adjusted padding */
+}
+
+.hero-content {
+  padding-top: 1rem; /* Add some space between ticker and content */
 }
 
 .stats-ticker::before,
@@ -816,12 +817,8 @@
   .ticker-label {
     font-size: 13px;
   }
-
-  /* Ensure proper spacing on mobile */
-  .hero {
-    padding-top: calc(var(--header-height) + 34px) !important; /* Slightly adjusted for mobile */
-  }
 }
+
     </style>
 </head>
 <body>
