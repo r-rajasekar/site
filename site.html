@@ -908,15 +908,19 @@
     font-size: 14px;
     padding: 16px 0;
     opacity: 0.8;
+    /* Add flex display for better centering */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .scroll-indicator span {
-    display: inline-block;
-    margin: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    width: 40px; /* Width to accommodate both arrows */
-    height: 16px; /* Match line-height */
-    vertical-align: middle; /* Align with text */
+    width: 60px; /* Increased width to give more space */
+    height: 16px;
 }
 
 .scroll-indicator span::before,
@@ -924,15 +928,19 @@
     content: '←';
     position: absolute;
     animation: moveLeft 1.5s ease-in-out infinite;
-    left: 0;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.scroll-indicator span::before {
+    left: 12px; /* Adjust left arrow position */
 }
 
 .scroll-indicator span::after {
     content: '→';
     animation: moveRight 1.5s ease-in-out infinite;
-    left: 16px;
+    right: 12px; /* Position from right instead of left */
+    left: auto; /* Remove left positioning */
 }
 
 @keyframes moveLeft {
@@ -947,7 +955,7 @@
 
 @media (max-width: 768px) {
     .scroll-indicator {
-        display: block;
+        display: flex; /* Changed from block to maintain centering */
     }
 }
 
