@@ -684,6 +684,131 @@
     -webkit-background-clip: text;
     background-clip: text;
 }
+
+.stats-ticker {
+  width: 100%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.stats-ticker::before,
+.stats-ticker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.stats-ticker::before {
+  left: 0;
+  background: linear-gradient(to right, var(--tg-theme-bg-color), transparent);
+}
+
+.stats-ticker::after {
+  right: 0;
+  background: linear-gradient(to left, var(--tg-theme-bg-color), transparent);
+}
+
+.ticker-wrapper {
+  padding: 12px 0;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  animation: ticker 30s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+}
+
+.ticker-item::after {
+  content: '•';
+  position: absolute;
+  right: -4px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.ticker-item:last-child::after {
+  display: none;
+}
+
+.ticker-item i {
+  color: var(--tg-theme-button-color);
+  font-size: 14px;
+}
+
+.ticker-number {
+  font-weight: 600;
+  font-size: 15px;
+  background: linear-gradient(120deg, #fff, var(--tg-theme-button-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ticker-label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+    justify-content: center;
+  }
+  
+  .ticker-item:nth-child(n+5) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ticker-wrapper {
+    padding: 10px 0;
+  }
+  
+  .ticker-item {
+    padding: 0 20px;
+  }
+  
+  .ticker-number {
+    font-size: 14px;
+  }
+  
+  .ticker-label {
+    font-size: 13px;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -705,6 +830,39 @@
     </nav>
 
 	<section class="hero">
+	
+	<div class="stats-ticker">
+  <div class="ticker-wrapper">
+    <div class="ticker-track">
+      <div class="ticker-item">
+        <i class="fas fa-video"></i>
+        <span class="ticker-number">1M+</span>
+        <span class="ticker-label">Daily Views</span>
+      </div>
+      <div class="ticker-item">
+        <i class="fas fa-users"></i>
+        <span class="ticker-number">500K+</span>
+        <span class="ticker-label">Creators</span>
+      </div>
+      <div class="ticker-item">
+        <i class="fas fa-star"></i>
+        <span class="ticker-number">4.9</span>
+        <span class="ticker-label">User Rating</span>
+      </div>
+      <div class="ticker-item">
+        <i class="fas fa-bolt"></i>
+        <span class="ticker-number">3s</span>
+        <span class="ticker-label">Avg Upload Time</span>
+      </div>
+      <!-- Duplicate items for seamless loop -->
+      <div class="ticker-item">
+        <i class="fas fa-video"></i>
+        <span class="ticker-number">1M+</span>
+        <span class="ticker-label">Daily Views</span>
+      </div>
+    </div>
+  </div>
+</div>
 		<div class="pronunciation" onclick="playPronunciation()">
 			<div class="word">
 				<span class="muted">t</span>
@@ -1327,6 +1485,49 @@
     </div>
 </section>
     <script>
+	
+	document.addEventListener('DOMContentLoaded', () => {
+  const ticker = document.querySelector('.ticker-track');
+  let isHovered = false;
+  let animation;
+
+  // Smooth pause/resume on hover
+  ticker.addEventListener('mouseenter', () => {
+    isHovered = true;
+    const currentTransform = getComputedStyle(ticker).transform;
+    ticker.style.animation = 'none';
+    ticker.style.transform = currentTransform;
+  });
+
+  ticker.addEventListener('mouseleave', () => {
+    isHovered = false;
+    const from = getComputedStyle(ticker).transform;
+    ticker.style.animation = 'none';
+    ticker.style.transform = from;
+    
+    // Force a reflow
+    ticker.offsetHeight;
+    
+    ticker.style.animation = 'ticker 30s linear infinite';
+    ticker.style.transform = '';
+  });
+
+  // Optional: Add intersection observer for performance
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          ticker.style.animationPlayState = 'running';
+        } else {
+          ticker.style.animationPlayState = 'paused';
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  observer.observe(ticker);
+});
 	
 	    function playPronunciation() {
         const utterance = new SpeechSynthesisUtterance("Shorts");
