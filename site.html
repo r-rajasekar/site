@@ -1666,6 +1666,53 @@ h3.agent-name {
     transition: opacity 0.3s ease;
     display: inline-block; /* This is important for gradient text */
 }
+.ai-agents-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s; /* Comes after header animations */
+}
+
+.agent-wrapper {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Stagger the agent cards */
+.agent-wrapper:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.agent-wrapper:nth-child(2) {
+    animation-delay: 1s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keep your existing mobile styles */
+@media (max-width: 768px) {
+    .ai-agents-grid {
+        grid-template-columns: 1fr;
+        gap: 0px;
+    }
+    
+    .agent-wrapper {
+        padding-top: 96px;
+    }
+}
     </style>
 </head>
 <body>
