@@ -1465,6 +1465,207 @@
     font-weight: 600;
     letter-spacing: -0.01em;
 }
+.platform-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.reward-text {
+    display: block;
+    margin-top: 8px;
+    color: #2AABEE;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .platform-subtitle {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+}
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.gradient-title {
+    display: inline-block;
+}
+
+.platform-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .platform-subtitle {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+}
+.platform-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #2AABEE, #89CFF0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .platform-subtitle {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+}
+.status-badge {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   padding: 8px 16px;
+   background: rgba(42, 171, 238, 0.15);
+   border-radius: 100px;
+   color: #2AABEE;
+   font-size: 14px;
+   font-weight: 500;
+   border: 1px solid rgba(42, 171, 238, 0.3);
+   box-shadow: 0 0 20px rgba(42, 171, 238, 0.1);
+}
+
+.pulse {
+   width: 6px;
+   height: 6px;
+   background: #22c55e; /* Changed to green */
+   border-radius: 50%;
+   position: relative;
+   box-shadow: 0 0 0 0 rgba(34, 197, 94, 1); /* Green shadow for glow */
+   animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+   0% {
+       transform: scale(0.95);
+       box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+   }
+   
+   70% {
+       transform: scale(1);
+       box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+   }
+   
+   100% {
+       transform: scale(0.95);
+       box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+   }
+}
+.cluster-status {
+   margin-top: 16px;
+   font-size: 14px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 12px;
+   animation-delay: 0.2s;
+}
+
+.nodes, .uptime {
+   background: linear-gradient(90deg, #2AABEE, #ffffff);
+   -webkit-background-clip: text;
+   background-clip: text;
+   -webkit-text-fill-color: transparent;
+   font-weight: 500;
+   transition: opacity 0.3s ease;
+}
+
+.separator {
+   color: rgba(42, 171, 238, 0.5);
+}
+
+h1 {
+    line-height: 1;
+    text-align: center;
+}
+
+.gradient-title {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    background: linear-gradient(160deg, #ffffff 0%, #2AABEE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.tight-break {
+    margin: 0;
+    line-height: 0.1; /* Adjust this value to control the gap */
+    display: block;
+}
+
+.agent-card .agent-name,
+h3.agent-name {
+    background: linear-gradient(90deg, #2AABEE, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+    display: inline-block; /* This is important for gradient text */
+}
     </style>
 </head>
 <body>
@@ -1542,20 +1743,23 @@
 		</div>
         
         <div class="hero-content">
-            <h1><span class="gradient-title">Create Epic</span><br>
+            <h1>
+                <span class="gradient-title first-line">Create Epic</span><br class="tight-break">
                 <span class="gradient-title">Short Videos</span>
-            </h1>    
-            
+            </h1>   
+            <div class="platform-subtitle fade-in-up delay-2">
+                <span class="gradient-text">AI</span> enhanced content creation on Telegram, with <span class="gradient-text">blockchain-based creator rewards.</span>
+             </div>
             <div class="ai-intelligence">
                 <div class="ai-status">
                     <div class="status-badge animate-in">
-                        <span class="pulse"></span>
-                        AI Agents Active
+                        <span class="pulse"> </span>
+                         AI Agents Active
                     </div>
                     <div class="cluster-status animate-in">
-                        <span class="nodes">Video Generation</span>
+                        <span class="nodes">SEO Optimization</span>
                         <span class="separator">•</span>
-                        <span class="uptime">SEO Optimization</span>
+                        <span class="uptime">Video Generation</span>
                     </div>
                     <div class="core-tech animate-in">
                         <span class="highlight">Dual AI Agent System:</span> 
