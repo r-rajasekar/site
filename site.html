@@ -1271,7 +1271,11 @@
 
 .progress {
     height: 100%;
-    background: linear-gradient(90deg, #2AABEE, #0088CC);
+    background: linear-gradient(90deg, 
+        #ffffff 0%,
+        #2AABEE 60%,    /* Solid blue until 60% */
+        #2AABEE 100%    /* Gradient to white for last 40% */
+    );
     border-radius: 2px;
     position: relative;
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1283,7 +1287,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(90deg, 
+        transparent,
+        rgba(255, 255, 255, 0.4), /* White glow */
+        rgba(42, 171, 238, 0.4), /* Telegram blue glow */
+        transparent
+    );
     animation: glow 2s linear infinite;
 }
 
