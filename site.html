@@ -1142,6 +1142,9 @@
 
 /* Mobile responsive styles */
 @media (max-width: 768px) {
+    .ai-status{
+        width: 450px;
+    }
     .agent-avatar svg {
         margin-top: 20px;
     }
@@ -1160,6 +1163,8 @@
         width: 85%;
         margin: 0 auto;
         padding-top: 48px;
+        top: -56px;
+        width: 100%;
     }
 }
 
@@ -1281,25 +1286,7 @@
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.progress-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, 
-        transparent,
-        rgba(255, 255, 255, 0.4), /* White glow */
-        rgba(42, 171, 238, 0.4), /* Telegram blue glow */
-        transparent
-    );
-    animation: glow 2s linear infinite;
-}
 
-@keyframes glow {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
 
 .tech-stack {
     display: flex;
