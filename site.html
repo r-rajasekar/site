@@ -1525,8 +1525,10 @@
         padding: 0 16px;
     }
 }
+
 .core-tech {
-    max-width: 800px;
+    max-width: 1200px;
+    width: 100%;
     margin: 24px auto 0;
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.7;
@@ -1534,6 +1536,15 @@
     animation-delay: 0.3s;
     padding: 0 20px;
     transition: all 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .core-tech {
+        padding: 0 16px;
+        font-size: 14px;
+    }
 }
 
 .highlight {
