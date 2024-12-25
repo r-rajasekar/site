@@ -1281,6 +1281,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 110%;
+    margin-left: -5%;
 }
 
 .section-label {
@@ -1827,6 +1829,29 @@ h3.agent-name {
     
     .agent-wrapper {
         padding-top: 96px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-capabilities {
+        margin-top: -40px; /* This moves it up */
+        position: relative;
+        z-index: 2;
+    }
+    
+    .metric-line {
+        padding: 8px;
+        gap: 12px;
+    }
+    
+    .metric-info {
+        width: 120px;
+        font-size: 14px;
+    }
+    
+    .cluster-status {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
     </style>
