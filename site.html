@@ -1855,12 +1855,37 @@ h3.agent-name {
         justify-content: center;
     }
 }
+.logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-10deg);
+            transition: transform 0.3s var(--tg-transition-bezier);
+            overflow: hidden;
+        }
+
+        .logo-icon svg,
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* If you want to control SVG fill color */
+        .logo-icon svg path {
+            fill: currentColor; /* This will inherit color from parent */
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <div class="logo-icon">tS</div>
+            <div class="logo-icon">
+                <img src="/tS_logo.svg" alt="tShorts Logo" class="logo-image">
+            </div>
             <span>tShorts</span>
         </a>
         <button class="menu-button" aria-label="Toggle menu">
@@ -3084,8 +3109,10 @@ document.querySelectorAll('.feature-item').forEach(item => {
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-left">
-            <a href="#" class="footer-logo">
-                <div class="footer-logo-icon">tS</div>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <img src="/tS_logo.svg" alt="tShorts Logo" class="logo-image">
+                </div>
                 <span>tShorts</span>
             </a>
         </div>
