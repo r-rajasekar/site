@@ -1190,6 +1190,14 @@
     max-width: 900px;
     margin: 40px auto;
     position: relative;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+    will-change: transform;
+    z-index: 1;
 }
 
 .cluster-status {
@@ -1239,6 +1247,12 @@
     flex-direction: column;
     gap: 32px;
     margin: 40px 0;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    isolation: isolate;
 }
 
 .metric-section {
@@ -1263,6 +1277,12 @@
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     transition: all 0.3s ease;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 1;
 }
 
 .metric-line:hover {
@@ -1290,6 +1310,12 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     overflow: hidden;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 1;
 }
 
 .progress {
@@ -1302,6 +1328,12 @@
     border-radius: 2px;
     position: relative;
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 2;
 }
 
 
@@ -1312,6 +1344,12 @@
     gap: 12px;
     margin-top: 32px;
     justify-content: center;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 1;
 }
 
 .stack-item {
@@ -1322,6 +1360,11 @@
     font-size: 13px;
     color: #2AABEE;
     transition: all 0.3s ease;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 .stack-item:hover {
