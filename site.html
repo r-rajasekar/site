@@ -840,6 +840,12 @@
     padding: 40px 24px;
     position: relative;
     background: linear-gradient(145deg, #17212b, #1a1a1a, #1f2936);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 1;
 }
 
 .ai-agents-header {
@@ -1133,6 +1139,12 @@
     transition: all 0.4s var(--tg-transition-bezier);
     border: 1px solid rgba(90, 200, 250, 0.1);
     text-align: center;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    z-index: 1;
 }
 
 .agent-avatar {
